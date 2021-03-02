@@ -5,10 +5,12 @@ defmodule ProjectWeb.Router do
     plug :accepts, ["json"]
   end
 
+  # user_path  POST    /users           HelloWeb.UserController :create
+
   scope "/", ProjectWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    # post('/register')
   end
 
   # Other scopes may use custom stacks.
