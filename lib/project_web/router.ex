@@ -8,9 +8,9 @@ defmodule ProjectWeb.Router do
   # user_path  POST    /users           HelloWeb.UserController :create
 
   scope "/", ProjectWeb do
-    pipe_through :browser
+    pipe_through :api
 
-    # post('/register')
+    post("/register", RegistrationController, :register)
   end
 
   # Other scopes may use custom stacks.
