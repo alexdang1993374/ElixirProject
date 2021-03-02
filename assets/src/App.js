@@ -17,7 +17,7 @@ export default function App() {
   const [password, setPassword] = useState("");
 
   async function submit() {
-    const url = "http://localhost/4000/register";
+    const url = "http://localhost:4000/register";
 
     try {
       const result = await axios({
