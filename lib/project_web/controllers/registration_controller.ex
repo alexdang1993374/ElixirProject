@@ -8,9 +8,23 @@ defmodule ProjectWeb.RegistrationController do
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   use ProjectWeb, :controller
 
-  def register(conn, params) do
-    render(conn, 'index.html')
+  def register(conn, _params) do
+    render(conn, "register.json")
   end
 end
