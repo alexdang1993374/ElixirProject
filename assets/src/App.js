@@ -1,57 +1,60 @@
-import React, { useState } from "react";
-import axios from "axios";
+import React from 'react'
+import axios from 'axios'
+
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+import Login from 'pages/Login'
+import Register from 'pages/Register'
 
 const styles = {
   container: {
-    display: "flex",
-    flexDirection: "column",
-    width: "320px",
-  },
-  input: {
-    margin: "5px",
-  },
-};
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    minHeight: '100vh',
+    backgroundColor: 'white'
+  }
+}
 
 export default function App() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
+  async function submit(username, password) {
+    const url = 'http://localhost:4000/register'
 
-  async function submit() {
-    const url = "http://localhost:4000/register";
+    const data = {
+      username,
+      password
+    }
 
     try {
       const result = await axios({
         url,
-        method: "post",
-        data: {
-          username,
-          password,
-        },
-      });
+        method: 'post',
+        data
+      })
 
-      console.log({ result });
+      console.log({ result })
     } catch (error) {
-      console.log(error);
+      console.log(error)
     }
   }
 
   return (
     <div style={styles.container}>
-      <input
-        style={styles.input}
-        name="username"
-        onChange={(e) => setUsername(e.target.value)}
-      />
+      <Router>
+        <Switch>
+          <Route
+            exact
+            path="/"
+            component={(props) => <Login onSubmit={submit} {...props} />}
+          />
 
-      <input
-        style={styles.input}
-        name="password"
-        onChange={(e) => setPassword(e.target.value)}
-      />
-
-      <button style={styles.input} onClick={submit}>
-        Login
-      </button>
+          <Route
+            exact
+            path="/register"
+            component={(props) => <Register onSubmit={submit} {...props} />}
+          />
+        </Switch>
+      </Router>
     </div>
-  );
+  )
 }
