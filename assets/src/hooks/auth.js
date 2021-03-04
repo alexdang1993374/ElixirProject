@@ -6,7 +6,7 @@ export function useAuth() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(false)
 
-  async function login(username, password) {
+  async function login({ username, password }) {
     const url = 'http://localhost:4000/login'
 
     const data = {
@@ -31,7 +31,7 @@ export function useAuth() {
     setLoading(false)
   }
 
-  async function register(username, password) {
+  async function register({ username, password }) {
     const url = 'http://localhost:4000/register'
 
     const data = {
@@ -51,8 +51,6 @@ export function useAuth() {
       setUser(result)
     } catch (error) {
       setError(error)
-
-      console.log(error)
     }
 
     setLoading(false)

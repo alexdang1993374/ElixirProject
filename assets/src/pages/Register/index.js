@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 
 import {
   FormControl,
@@ -10,12 +10,23 @@ import {
 } from '@material-ui/core'
 
 import { useHistory } from 'react-router-dom'
+import { useFormik } from 'formik'
+
+import validationSchema from './validation'
 
 export default function Register({ onSubmit }) {
-  const [username, setUsername] = useState('')
-  const [password, setPassword] = useState('')
-
   const history = useHistory()
+
+  const { handleSubmit, handleChange, handleBlur, errors, touched } = useFormik(
+    {
+      initialValues: {
+        username: '',
+        password: ''
+      },
+      validationSchema,
+      onSubmit
+    }
+  )
 
   return (
     <Paper elevation={1}>
@@ -28,7 +39,10 @@ export default function Register({ onSubmit }) {
           <TextField
             name="username"
             label="Username"
-            onChange={(e) => setUsername(e.target.value)}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.username && Boolean(errors.username)}
+            helperText={errors.username}
           />
         </FormControl>
 
@@ -37,7 +51,10 @@ export default function Register({ onSubmit }) {
             name="password"
             label="Password"
             type="password"
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handleChange}
+            onBlur={handleBlur}
+            error={touched.password && Boolean(errors.password)}
+            helperText={errors.password}
           />
         </FormControl>
       </Box>
@@ -47,7 +64,7 @@ export default function Register({ onSubmit }) {
           color="primary"
           variant="contained"
           fullWidth
-          onClick={() => onSubmit(username, password)}
+          onClick={handleSubmit}
         >
           Register
         </Button>
